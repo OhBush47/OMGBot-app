@@ -32,12 +32,12 @@ group by BIDASKS.TimeStamp, ETHWETH.ETHWETHBal""", sql_engine)
 max_ts = df.TimeStamp.max()
 navbid = df[df.TimeStamp == max_ts].NAVBid.iloc[0]
 navask = df[df.TimeStamp == max_ts].NAVAsk.iloc[0]
-returnsbid = navbid / ethinvestment - 1
-returnsask = navask / ethinvestment - 1
+returnsbid = round(navbid / ethinvestment - 1,2)
+returnsask = round(navask / ethinvestment - 1,2)
 
 bidcol, askcol = st.columns(2)
-bidcol.write(returnsbid)
-askcol.write(returnsask)
+bidcol.subheader("Bid returns: {returnsbid}%")
+askcol.subheader("Ask returns: {returnsask}%")
 
 #Chart
 st.line_chart(df, x="TimeStamp",y=["NAVBid","NAVAsk"], height=666)
