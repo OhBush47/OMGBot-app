@@ -15,7 +15,7 @@ sql_engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_pw}@{db_host}:
 sql_engine = sql_engine.execution_options(autocommit=True)
 
 #Date and investment
-ethinvestment=pd.read_sql("""SELECT sum(InvestmentETH) as InvestmentETH FROM thememes6529.investors""",sql_engine).InvestmentETH[0]
+ethinvestment=pd.read_sql("""SELECT sum(InvestmentETH) as InvestmentETH FROM thememes6529.investors""",sql_engine).InvestmentETH.iloc[0]
 
 #Data
 df=pd.read_sql("""SELECT BIDASKS.TimeStamp
@@ -30,8 +30,8 @@ group by BIDASKS.TimeStamp, ETHWETH.ETHWETHBal""", sql_engine)
 
 #Calc Returns
 max_ts = df.TimeStamp.max()
-navbid = df[df.TimeStamp == max_ts].NAVBid[0]
-navask = df[df.TimeStamp == max_ts].NAVAsk[0]
+navbid = df[df.TimeStamp == max_ts].NAVBid.iloc[0]
+navask = df[df.TimeStamp == max_ts].NAVAsk.iloc[0]
 returnsbid = navbid / ethinvestment - 1
 returnsask = navask / ethinvestment - 1
 
