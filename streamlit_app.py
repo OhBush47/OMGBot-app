@@ -1,12 +1,12 @@
 import streamlit as st
 
-pg_valuation = st.Page("valuation.py", title="Valuation")
-pg_avgdaybidask = st.Page("avgdaybidask.py", title="Average Daily Bid Ask")
+pg_valuationmetrics = st.Page("valuationmetrics.py", title="Valuation Metrics")
+pg_bidaskts = st.Page("bidasktimeseries.py", title="Bid Ask TimeSeries")
 pg_omgbot = st.Page("OMGBot.py", title="OMGBot")
 
 pg = st.navigation(
     {
-        "The Memes by 6529": [pg_valuation, pg_avgdaybidask],
+        "The Memes by 6529": [pg_valuationmetrics, pg_bidaskts],
         "OMGBot": [pg_omgbot]
     }
 )
