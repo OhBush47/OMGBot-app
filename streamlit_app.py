@@ -1,6 +1,11 @@
 import streamlit as st
 
-st.title("🎈 My new app")
-st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
+pg_thememesby6529 = st.Page("thememesby6529.py", title="The Memes By 6529")
+
+pg = st.navigation(
+    {
+        "The Memes by 6529": [pg_thememesby6529]
+    }
 )
+
+pg.run()
