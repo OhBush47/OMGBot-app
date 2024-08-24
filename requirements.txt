@@ -1,2 +1,3 @@
 streamlit
 sqlalchemy
+mysql-connector-python

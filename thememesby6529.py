@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 st.title('The Memes By 6529')
 
 #Users
-db_user= st.secrets['db_user']
+db_user = st.secrets['db_user']
 db_pw = st.secrets['db_pw']
 db_host = st.secrets['db_host']
 db_port = st.secrets['db_port']
