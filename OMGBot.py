@@ -30,8 +30,8 @@ group by BIDASKS.TimeStamp, ETHWETH.ETHWETHBal""", sql_engine)
 
 #Calc Returns
 max_ts = df.TimeStamp.max()
-navbid = df[df.TimeStamp == max_ts]
-navask = df[df.TimeStamp == max_ts]
+navbid = df[df.TimeStamp == max_ts].NAVBid.loc[0]
+navask = df[df.TimeStamp == max_ts].NAVAsk.loc[0]
 returnsbid = navbid / ethinvestment - 1
 returnsask = navask / ethinvestment - 1
 
