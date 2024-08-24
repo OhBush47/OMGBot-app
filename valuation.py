@@ -2,6 +2,7 @@ import pandas as pd, streamlit as st
 from sqlalchemy import create_engine
 
 st.title('The Memes By 6529')
+st.header('Valuation')
 
 #Users
 db_user = st.secrets['db_user']
@@ -30,4 +31,6 @@ LEFT JOIN thememes6529.stats STATS
 ON BIDASKS.TokenID = STATS.TokenID
 WHERE BIDASKS.TimeStamp = (SELECT MAX(TimeStamp) FROM thememes6529.bidasks)""", sql_engine)
 
-st.dataframe(df)
+st.dataframe(df, use_container_width=True, hide_index=True, height=666)
+
+sql_engine.dispose()

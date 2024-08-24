@@ -1,11 +1,12 @@
 import streamlit as st
 
-pg_thememesby6529 = st.Page("thememesby6529.py", title="The Memes By 6529")
+pg_valuation = st.Page("valuation.py", title="Valuation")
+pg_avgdaybidask = st.Page("avgdaybidask.py", title="Average Daily Bid Ask")
 pg_omgbot = st.Page("OMGBot.py", title="OMGBot")
 
 pg = st.navigation(
     {
-        "The Memes by 6529": [pg_thememesby6529],
+        "The Memes by 6529": [pg_valuation, pg_avgdaybidask],
         "OMGBot": [pg_omgbot]
     }
 )
