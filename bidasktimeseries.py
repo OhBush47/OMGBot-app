@@ -2,7 +2,7 @@ import pandas as pd, streamlit as st
 from sqlalchemy import create_engine
 
 st.title('The Memes By 6529')
-st.header('Intraday Bid Ask')
+st.header('Bid Ask TimeSeries')
 
 #Users
 db_user = st.secrets['db_user']
