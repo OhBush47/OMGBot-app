@@ -36,8 +36,8 @@ returnsbid = round(navbid / ethinvestment - 1,2)
 returnsask = round(navask / ethinvestment - 1,2)
 
 bidcol, askcol = st.columns(2)
-bidcol.subheader("Bid returns: {returnsbid}%")
-askcol.subheader("Ask returns: {returnsask}%")
+bidcol.subheader(f"Bid returns: {returnsbid}%")
+askcol.subheader(f"Ask returns: {returnsask}%")
 
 #Chart
 st.line_chart(df, x="TimeStamp",y=["NAVBid","NAVAsk"], height=666)
