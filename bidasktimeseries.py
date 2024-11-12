@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 
 st.title('The Memes By 6529')
 st.header('Bid Ask TimeSeries')
+st.set_page_config(layout="wide")
 
 #Users
 db_user = st.secrets['db_user']
