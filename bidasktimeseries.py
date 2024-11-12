@@ -1,9 +1,9 @@
 import pandas as pd, streamlit as st
 from sqlalchemy import create_engine
 
+st.set_page_config(layout="wide")
 st.title('The Memes By 6529')
 st.header('Bid Ask TimeSeries')
-st.set_page_config(layout="wide")
 
 #Users
 db_user = st.secrets['db_user']
