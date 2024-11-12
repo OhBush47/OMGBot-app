@@ -42,6 +42,6 @@ bidcol.subheader(f"Bid returns: {round(bidreturn,2)}%")
 askcol.subheader(f"Ask returns: {round(askreturn,2)}%")
 
 #Chart
-st.line_chart(df, x="TimeStamp",y=["NAVBid","NAVAsk"], height=666)
+st.line_chart(df, x="TimeStamp",y=["NAVBid","NAVAsk"], height=666, use_container_width=True)
 
 sql_engine.dispose()

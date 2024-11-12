@@ -24,6 +24,6 @@ WHERE BIDASKS.TimeStamp in (SELECT MAX(TimeStamp) FROM thememes6529.bidasks GROU
 GROUP BY BIDASKS.TimeStamp
 ORDER by BIDASKS.TimeStamp""", sql_engine)
 
-st.line_chart(df, x="TimeStamp",y=["Bid","Ask"], height=666)
+st.line_chart(df, x="TimeStamp",y=["Bid","Ask"], height=666, use_container_width=True)
 
 sql_engine.dispose()
