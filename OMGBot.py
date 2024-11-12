@@ -1,8 +1,8 @@
 import pandas as pd, streamlit as st
 from sqlalchemy import create_engine
 
-st.title('OMGBot')
 st.set_page_config(layout="wide")
+st.title('OMGBot')
 
 #Users
 db_user = st.secrets['db_user']
