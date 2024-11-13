@@ -28,7 +28,7 @@ tokens = pd.read_sql("SELECT DISTINCT TokenID FROM thememes6529.stats", sql_engi
 
 col_szns, col_tokens = st.columns(2)
 box_szns = col_szns.multiselect("Szns:",szns)
-box_tokens = col_tokens.multiselect("Tokens",tokens)
+box_tokens = col_tokens.multiselect("Tokens:",tokens)
 select_szns = join_or_convert(box_szns)
 select_tokens = join_or_convert(box_tokens)
 st.write(select_szns)
@@ -37,7 +37,6 @@ st.write(select_tokens)
 df=pd.read_sql(f"""               
 SELECT 
     BIDASKS.TimeStamp
-    , sum(CASE WHEN BIDASKS.Avg < NAKA.Avg THEN BIDASKS.Avg ELSE 0 END) as Avg
     , sum(CASE WHEN BIDASKS.Bid < NAKA.Bid THEN BIDASKS.Bid ELSE 0 END) as Bid
     , sum(CASE WHEN BIDASKS.Ask < NAKA.Ask THEN BIDASKS.Ask ELSE 0 END) as Ask
 
