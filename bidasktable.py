@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 
 st.set_page_config(layout="wide")
 st.title('The Memes By 6529')
-st.header('Bid ASk Table')
+st.header('Bid Ask Table')
 
 #Users
 db_user = st.secrets['db_user']
