@@ -31,8 +31,6 @@ box_szns = col_szns.multiselect("Szns:",szns)
 box_tokens = col_tokens.multiselect("Tokens:",tokens)
 select_szns = join_or_convert(box_szns)
 select_tokens = join_or_convert(box_tokens)
-st.write(select_szns)
-st.write(select_tokens)
 
 df=pd.read_sql(f"""               
 SELECT 
