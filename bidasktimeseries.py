@@ -54,8 +54,8 @@ JOIN
     on BIDASKS.TokenID = STATS.TokenID
                
 WHERE 
-    STATS.Szn in ('{select_szns}')
-    AND STATS.TokenID in ('{select_tokens}')
+    (STATS.Szn in ('{select_szns}')
+    or STATS.TokenID in ('{select_tokens}'))
 
     AND BIDASKS.TimeStamp in (SELECT MAX(TimeStamp) FROM thememes6529.bidasks GROUP BY DATE(TimeStamp))
     GROUP BY BIDASKS.TimeStamp
