@@ -61,6 +61,6 @@ WHERE
     ORDER by BIDASKS.TimeStamp
 """, sql_engine)
 
-st.line_chart(df, x="TimeStamp",y=["Bid","Ask","Avg"], height=666, use_container_width=True)
+st.line_chart(df, x="TimeStamp",y=["Bid","Ask"], height=666, use_container_width=True)
 
 sql_engine.dispose()
