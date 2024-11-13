@@ -16,6 +16,12 @@ db = st.secrets['db']
 sql_engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_pw}@{db_host}:{db_port}/{db}", pool_recycle=3600, pool_pre_ping=True)
 sql_engine = sql_engine.execution_options(autocommit=True)
 
+def join_or_convert(item):
+    if isinstance(item, list):
+        return ", ".join(map(str, item))
+    else:
+        return str(item)
+
 #Get szns & tokens
 szns = pd.read_sql("SELECT DISTINCT Szn FROM thememes6529.stats", sql_engine).Szn.tolist()
 tokens = pd.read_sql("SELECT DISTINCT TokenID FROM thememes6529.stats", sql_engine).TokenID.tolist()
@@ -23,8 +29,8 @@ tokens = pd.read_sql("SELECT DISTINCT TokenID FROM thememes6529.stats", sql_engi
 col_szns, col_tokens = st.columns(2)
 box_szns = col_szns.multiselect("Szns:",szns)
 box_tokens = col_tokens.multiselect("Tokens",tokens)
-select_szns = ", ".join(box_szns)
-select_tokens =", ".join(box_tokens)
+select_szns = join_or_convert(box_szns)
+select_tokens = join_or_convert(box_tokens)
 st.write(select_szns)
 st.write(select_tokens)
 
