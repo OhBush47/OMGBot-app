@@ -28,7 +28,7 @@ select_tokens =", ".join(box_tokens)
 st.write(select_szns)
 st.write(select_tokens)
 
-df=pd.read_sql("""               
+df=pd.read_sql(f"""               
 SELECT 
     BIDASKS.TimeStamp
     , sum(CASE WHEN BIDASKS.Avg < NAKA.Avg THEN BIDASKS.Avg ELSE 0 END) as Avg
