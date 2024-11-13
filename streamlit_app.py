@@ -2,8 +2,8 @@ import streamlit as st
 
 st.logo("omg.jpg")
 
-pg_valuationmetrics = st.Page("valuationmetrics.py", title="Valuation Metrics")
-pg_bidaskts = st.Page("bidasktimeseries.py", title="Bid Ask TimeSeries")
+pg_valuationmetrics = st.Page("bidasktable.py", title="Bid Ask Table")
+pg_bidaskts = st.Page("bidaskchart.py", title="Bid Ask Chart")
 pg_omgbot = st.Page("OMGBot.py", title="OMGBot")
 
 pg = st.navigation(
