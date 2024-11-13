@@ -17,8 +17,8 @@ sql_engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_pw}@{db_host}:
 sql_engine = sql_engine.execution_options(autocommit=True)
 
 #Get szns & tokens
-szns = pd.read_sql("SELECT DISTINCT Szn FROM thememes6529.stats", sql_engine).tolist()
-tokens = pd.read_sql("SELECT DISTINCT TokenID FROM thememes6529.stats", sql_engine).tolist()
+szns = pd.read_sql("SELECT DISTINCT Szn FROM thememes6529.stats", sql_engine).Szn.tolist()
+tokens = pd.read_sql("SELECT DISTINCT TokenID FROM thememes6529.stats", sql_engine).TokenID.tolist()
 
 col_szns, col_tokens = st.columns(2)
 box_szns = col_szns.multiselect("Szns:",szns)
