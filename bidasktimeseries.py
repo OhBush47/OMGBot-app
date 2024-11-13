@@ -22,7 +22,7 @@ tokens = pd.read_sql("SELECT DISTINCT TokenID FROM thememes6529.stats").tolist()
 
 col_szns, col_tokens = st.columns(2)
 box_szns = col_szns.multiselect("Szns:",szns)
-box_tokens = col_tokens.multiselect("Tokens":tokens)
+box_tokens = col_tokens.multiselect("Tokens",tokens)
 select_szns = ", ".join(box_szns)
 select_tokens =", ".join(box_tokens)
 st.write(select_szns)
