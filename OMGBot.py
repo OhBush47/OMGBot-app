@@ -45,9 +45,9 @@ st.subheader(f"Returns: {round(returns,2)}%")
 
 #Chart
 chart = alt.Chart(df_melted).mark_bar().encode(
-    x=alt.X('TimeStamp', title='TimeStamp'),
-    y=alt.Y('ETH', title='ETH'),
-    color='Asset',
+    x=alt.X('yearmonth(TimeStamp):T', title='TimeStamp'),
+    y=alt.Y('ETH:Q', title='ETH'),
+    color='Asset:N',
     column=alt.Column('Asset', title=None)
 ).properties(
     width=200
