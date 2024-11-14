@@ -29,6 +29,7 @@ ON BIDASKS.TimeStamp = ETHWETH.TimeStamp
 WHERE BIDASKS.TimeStamp >= '2023-04-06 14:03:54'
 and BIDASKS.TimeStamp in (select max(TimeStamp) from thememes6529.bidasks group by Date(TimeStamp))
 group by BIDASKS.TimeStamp, ETHWETH.ETHBal, ETHWETH.WETHBal, ETHWETH.OTHERBal""", sql_engine)
+df.fillna(0,inplace=True)
 
 #Calc Returns
 max_ts = df.TimeStamp.max()
