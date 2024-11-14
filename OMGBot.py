@@ -41,7 +41,7 @@ def Chart(bidask):
     #Chart
     df_melted = df.melt('TimeStamp', var_name='Asset', value_name='ETH')
     chart = alt.Chart(df_melted).mark_bar().encode(
-        x=alt.X('TimeStamp', title='TimeStamp'),
+        x=alt.X('yearmonthdate(TimeStamp):O', title='TimeStamp'),
         y=alt.Y('sum(ETH)', title='ETH'),
         color='Asset'
     ).properties(
