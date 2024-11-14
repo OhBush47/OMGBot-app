@@ -37,7 +37,7 @@ def Chart(bidask):
     returns = nav / investment - 1
     returns *= 100
     navcol, returnscol = st.columns(2)
-    navcol.subheadear(f"{bidask} NAV: {round(nav,2)}ETH")
+    navcol.subheader(f"{bidask} NAV: {round(nav,2)}ETH")
     returnscol.subheader(f"{bidask} Returns: {round(returns,2)}%")
 
     #Chart
