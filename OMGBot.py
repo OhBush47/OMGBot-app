@@ -32,7 +32,7 @@ group by BIDASKS.TimeStamp, ETHWETH.ETHBal, ETHWETH.WETHBal, ETHWETH.OTHERBal"""
 
 #Calc Returns
 max_ts = df.TimeStamp.max()
-nav = df[df.TimeStamp == max_ts].sum(axis=1)
+nav = df[df.TimeStamp == max_ts][['ETHWETH','COINS','NFTS']].sum(axis=1)
 returns = nav / investment - 1
 returns *= 100
 
