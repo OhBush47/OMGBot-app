@@ -36,7 +36,9 @@ def Chart(bidask):
     nav = df[df.TimeStamp == max_ts][['ETHWETH','COINS','NFTS']].sum(axis=1).iloc[0]
     returns = nav / investment - 1
     returns *= 100
-    st.subheader(f"{bidask} Returns: {round(returns,2)}%")
+    navcol, returnscol = st.columns(2)
+    navcol.subheadear(f"{bidask} NAV: {round(nav,2)}ETH")
+    returnscol.subheader(f"{bidask} Returns: {round(returns,2)}%")
 
     #Chart
     df_melted = df.melt('TimeStamp', var_name='Asset', value_name='ETH')
