@@ -34,6 +34,7 @@ df.fillna(0,inplace=True)
 #Calc Returns
 max_ts = df.TimeStamp.max()
 nav = df[df.TimeStamp == max_ts][['ETHWETH','COINS','NFTS']].sum(axis=1)
+st.write(nav)
 returns = nav / investment - 1
 returns *= 100
 
