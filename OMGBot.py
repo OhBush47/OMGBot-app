@@ -1,4 +1,4 @@
-import pandas as pd, streamlit as st
+import pandas as pd, altair as alt, streamlit as st
 from sqlalchemy import create_engine
 
 st.set_page_config(layout="wide")
@@ -16,12 +16,13 @@ sql_engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_pw}@{db_host}:
 sql_engine = sql_engine.execution_options(autocommit=True)
 
 #Date and investment
-ethinvestment=pd.read_sql("""SELECT sum(InvestmentETH) as InvestmentETH FROM thememes6529.investors""",sql_engine).InvestmentETH.iloc[0]
+investment=pd.read_sql("""SELECT sum(InvestmentETH) as InvestmentETH FROM thememes6529.investors""",sql_engine).InvestmentETH.iloc[0]
 
 #Data
 df=pd.read_sql("""SELECT BIDASKS.TimeStamp
-, ETHWETH.ETHWETHBal + sum(BIDASKS.TokenBal * BIDASKS.Bid) as NAVBid
-, ETHWETH.ETHWETHBal + sum(BIDASKS.TokenBal * BIDASKS.Ask) as NAVAsk 
+, ETHWETH.ETHBal + ETHWETH.WETHBal as ETHWETH
+, OTHERBal as COINS
+, sum(BIDASKS.TokenBal * BIDASKS.Bid) as NFTS
 FROM thememes6529.bidasks BIDASKS
 LEFT JOIN thememes6529.ethweth ETHWETH
 ON BIDASKS.TimeStamp = ETHWETH.TimeStamp
@@ -31,18 +32,25 @@ group by BIDASKS.TimeStamp, ETHWETH.ETHWETHBal""", sql_engine)
 
 #Calc Returns
 max_ts = df.TimeStamp.max()
-navbid = df[df.TimeStamp == max_ts].NAVBid.iloc[0]
-navask = df[df.TimeStamp == max_ts].NAVAsk.iloc[0]
-bidreturn = navbid / ethinvestment - 1
-askreturn = navask / ethinvestment - 1
-bidreturn *= 100
-askreturn *= 100
+nav = df[df.TimeStamp == max_ts][['ETHWETH','COINS','NFTS']].sum()
+returns = nav / investment - 1
+returns *= 100
 
-bidcol, askcol = st.columns(2)
-bidcol.subheader(f"Bid returns: {round(bidreturn,2)}%")
-askcol.subheader(f"Ask returns: {round(askreturn,2)}%")
+#Melt
+df_melted = df.melt('TimeStamp', var_name='Asset', value_name='ETH')
+
+#Metrics
+st.subheader(f"Returns: {round(returns,2)}%")
 
 #Chart
-st.line_chart(df, x="TimeStamp",y=["NAVBid","NAVAsk"], height=666, use_container_width=True)
+chart = alt.Chart(df_melted).mark_bar().encode(
+    x=alt.X('TimeStamp', title='TimeStamp'),
+    y=alt.Y('ETH', title='ETH'),
+    color='Asset',
+    column=alt.Column('Asset', title=None)
+).properties(
+    width=200
+)
+st.altair_chart(chart, use_container_width=True)
 
 sql_engine.dispose()

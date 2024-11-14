@@ -1,3 +1,4 @@
 streamlit
 sqlalchemy
 mysql-connector-python
+altair
