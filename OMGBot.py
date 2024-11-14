@@ -31,9 +31,9 @@ and BIDASKS.TimeStamp in (select max(TimeStamp) from thememes6529.bidasks group 
 group by BIDASKS.TimeStamp, ETHWETH.ETHBal, ETHWETH.WETHBal, ETHWETH.OTHERBal""", sql_engine)
 df.fillna(0,inplace=True)
 
-#Calc Returns
+#Returns
 max_ts = df.TimeStamp.max()
-nav = df[df.TimeStamp == max_ts][['ETHWETH','COINS','NFTS']].sum(axis=1)
+nav = df[df.TimeStamp == max_ts][['ETHWETH','COINS','NFTS']].sum(axis=1).iloc[0]
 st.write(nav)
 returns = nav / investment - 1
 returns *= 100
