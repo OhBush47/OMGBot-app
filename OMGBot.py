@@ -21,18 +21,18 @@ investment=pd.read_sql("""SELECT sum(InvestmentETH) as InvestmentETH FROM themem
 #Data
 df=pd.read_sql("""SELECT BIDASKS.TimeStamp
 , ETHWETH.ETHBal + ETHWETH.WETHBal as ETHWETH
-, OTHERBal as COINS
-, sum(BIDASKS.TokenBal * BIDASKS.Bid) as NFTS
+, ETHWETH.OTHERBal as COINS
+, sum(BIDASKS.TokenBal * BIDASKS.Ask) as NFTS
 FROM thememes6529.bidasks BIDASKS
 LEFT JOIN thememes6529.ethweth ETHWETH
 ON BIDASKS.TimeStamp = ETHWETH.TimeStamp
 WHERE BIDASKS.TimeStamp >= '2023-04-06 14:03:54'
 and BIDASKS.TimeStamp in (select max(TimeStamp) from thememes6529.bidasks group by Date(TimeStamp))
-group by BIDASKS.TimeStamp, ETHWETH.ETHWETHBal""", sql_engine)
+group by BIDASKS.TimeStamp, ETHWETH.ETHBal, ETHWETH.WETHBal, ETHWETH.OTHERBal""", sql_engine)
 
 #Calc Returns
 max_ts = df.TimeStamp.max()
-nav = df[df.TimeStamp == max_ts][['ETHWETH','COINS','NFTS']].sum()
+nav = df[df.TimeStamp == max_ts].sum(axis=1)
 returns = nav / investment - 1
 returns *= 100
 
