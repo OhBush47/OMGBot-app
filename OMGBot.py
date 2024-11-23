@@ -16,7 +16,7 @@ sql_engine = create_engine(f"mysql+mysqlconnector://{db_user}:{db_pw}@{db_host}:
 sql_engine = sql_engine.execution_options(autocommit=True)
 
 #Date and investment
-investment=pd.read_sql("""SELECT sum(InvestmentETH) as InvestmentETH FROM thememes6529.investors""",sql_engine).InvestmentETH.iloc[0]
+investment=pd.read_sql("""SELECT sum(InvestmentETH) as InvestmentETH FROM thememes6529.investors where ENS != 'trading.chrisroc.eth'""",sql_engine).InvestmentETH.iloc[0]
 
 def Chart(bidask):
     #Data
