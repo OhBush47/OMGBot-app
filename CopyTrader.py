@@ -33,7 +33,7 @@ def get_swaps(api_key, real_swaps, address, start_date):
         transactions = response.json()
 
         while len(transactions) == 0:
-            print('Retrying')
+            st.write('Retrying')
             time.sleep(30)
             response = requests.get(url, params=params)
             response.raise_for_status()
@@ -42,7 +42,7 @@ def get_swaps(api_key, real_swaps, address, start_date):
         #Update params
         txn_sign = transactions[-1]['signature']
         txn_timestamp = transactions[-1]['timestamp']
-        print(pd.to_datetime(txn_timestamp, unit='s'))
+        st.write(pd.to_datetime(txn_timestamp, unit='s'))
 
         #Process transactions
         for transaction in transactions:
@@ -112,7 +112,7 @@ def simulate(real_swaps, address, start_date, start_sol, buy_perc, max_buy, txn_
             sim_token_in_amount = min(real_token_in_amount * buy_perc, max_buy)
             bot_fee = sim_token_in_amount * 0.01            
             if sim_token_in_amount >= sim_portfolio['SOL']:
-                print('Insufficient SOL for signature:', real_swap['signature'],' on:', pd.to_datetime(real_swap['timestamp'],unit='s'))
+                st.write('Insufficient SOL for signature:', real_swap['signature'],' on:', pd.to_datetime(real_swap['timestamp'],unit='s'))
             else:
                 sim_token_out_amount = real_token_out_amount * buy_perc * 1/(1+slip_buy)
                 
@@ -259,13 +259,13 @@ if st.button('Simulate:'):
     #Display
     real_col, sim_col = st.columns(2)
     real_col.subheader('Real Swaps')
-    real_col.dataframe(real_swaps, use_column_width=True)
+    real_col.dataframe(real_swaps, use_container_width=True)
     sim_col.subheader('Simulated Swaps')
-    sim_col.dataframe(sim_swaps, use_column_width=True)
+    sim_col.dataframe(sim_swaps, use_container_width=True)
 
     #Convert to SOL
     sol_sim_portfolio, usdc_sim_portfolio = convert2sol(sim_portfolio, api_key, 245)
     real_col.subheader('Real Portfolio')
-    real_col.dataframe(pd.DataFrame(sol_sim_portfolio,index=[0]), use_column_width=True)
+    real_col.dataframe(pd.DataFrame(sol_sim_portfolio,index=[0]), use_container_width=True)
     sim_col.subheader('Simulated Portfolio')
-    sim_col.dataframe(pd.DataFrame(usdc_sim_portfolio,index=[0]), use_column_width=True)
+    sim_col.dataframe(pd.DataFrame(usdc_sim_portfolio,index=[0]), use_container_width=True)
