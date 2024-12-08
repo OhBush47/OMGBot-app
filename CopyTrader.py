@@ -239,7 +239,17 @@ if st.button('Simulate:'):
 
     #Get swaps
     # real_swaps = pd.read_csv('real_swaps.csv')
-    real_swaps = pd.DataFrame()
+    real_swaps = pd.DataFrame(columns=[
+        "signature",
+        "timestamp",
+        "description",
+        "source",
+        "token_in",
+        "token_in_amount",
+        "token_out",
+        "token_out_amount",
+        "address"
+    ])
     real_swaps = get_swaps(api_key, real_swaps, address, start_date)
     # real_swaps.to_csv('real_swaps.csv', index=False)
 
