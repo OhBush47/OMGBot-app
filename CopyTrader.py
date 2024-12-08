@@ -4,7 +4,7 @@ import time, datetime
 
 def get_swaps(api_key, real_swaps, address, start_date):
 
-    start_timestamp = int(datetime.datetime.combine(start_date, datetime.min.time()).timestamp())
+    start_timestamp = int(datetime.datetime.combine(start_date, datetime.datetime.min.time()).timestamp())
 
     #Filter address
     address_real_swaps = real_swaps.loc[real_swaps.address == address]
@@ -80,7 +80,7 @@ def get_swaps(api_key, real_swaps, address, start_date):
 
 def simulate(real_swaps, address, start_date, start_sol, buy_perc, max_buy, txn_fee_buy, txn_fee_sell, slip_buy, slip_sell):
 
-    start_timestamp = int(datetime.datetime.combine(start_date, datetime.min.time()).timestamp())
+    start_timestamp = int(datetime.datetime.combine(start_date, datetime.datetime.min.time()).timestamp())
 
     # real_swaps
     real_swaps = real_swaps[real_swaps.address == address]
