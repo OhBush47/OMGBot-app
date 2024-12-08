@@ -224,9 +224,17 @@ st.title('Copy Trader')
 api_key = st.secrets['helius_key']
 
 # Usage
-address_col, start_date_col = st.columns(2)
-address = address_col.text_input('Address:')
-start_date = start_date_col.date_input('2024-10-01')
+col1, col2, col3, col4, col5 = st.columns(5)
+address = col1.text_input('Address:')
+start_date = col2.date_input('Start Date:')
+end_date = col2.date_input('End Date:')
+start_sol = col1.number_input('Start Sol:')
+buy_perc = col3.number_input('Buy Percentage:')
+max_buy = col3.number_input('Buy Max:')
+txn_fee_buy = col4.number_input('Buy Txn Fee:')
+txn_fee_sell = col4.number_input('Sell Txn Fee:')
+slip_buy = col5.number_input('Buy Slippage:')
+slip_sell = col5.number_input('Sell Slippage:')
 
 if st.button('Load:'):
 
@@ -237,12 +245,12 @@ if st.button('Load:'):
     # real_swaps.to_csv('real_swaps.csv', index=False)
 
     #Simulate copy trading
-    real_portfolio, sim_portfolio, sim_swaps = simulate(real_swaps, address, start_date, 10, 0.01, 1, 0.003, 0.0003, 0.05, 0.05)
+    real_portfolio, sim_portfolio, sim_swaps = simulate(real_swaps=real_swaps, address=address, start_date=start_date, start_sol=start_sol, buy_perc=buy_perc, max_buy=max_buy, txn_fee_buy=txn_fee_buy, txn_fee_sell=txn_fee_sell, slip_buy=slip_buy, slip_sell=slip_sell)
     # pd.DataFrame(real_portfolio,index=[0]).to_csv('real_portfolio.csv',index=False)
     # pd.DataFrame(sim_portfolio,index=[0]).to_csv('sim_portfolio.csv',index=False)
     # sim_swaps.to_csv('sim_swaps.csv',index=False)
 
     #Convert to SOL
-    sol_sim_portfolio, usdc_sim_portfolio = convert2sol(sim_portfolio, api_key, 175)
+    sol_sim_portfolio, usdc_sim_portfolio = convert2sol(sim_portfolio, api_key, 245)
     # pd.DataFrame(sol_sim_portfolio,index=[0]).to_csv('sol_sim_portfolio.csv',index=False)
     # pd.DataFrame(usdc_sim_portfolio,index=[0]).to_csv('usdc_sim_portfolio.csv',index=False)
