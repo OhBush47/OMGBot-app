@@ -10,7 +10,7 @@ pg_copytrader = st.Page("CopyTrader.py", title="CopyTrader")
 pg = st.navigation(
     {
         "The Memes by 6529": [pg_valuationmetrics, pg_bidaskts],
-        "OMGBot": [pg_omgbot]
+        "OMGBot": [pg_omgbot],
         "Copy Trader": [pg_copytrader]
     }
 )
