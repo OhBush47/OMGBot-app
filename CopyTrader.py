@@ -264,8 +264,9 @@ if st.button('Simulate:'):
     sim_col.dataframe(sim_swaps, use_container_width=True)
 
     #Convert to SOL
+    sol_real_portfolio, usdc_real_portfolio = convert2sol(real_portfolio, api_key, 245)
     sol_sim_portfolio, usdc_sim_portfolio = convert2sol(sim_portfolio, api_key, 245)
     real_col.subheader('Real Portfolio')
-    real_col.dataframe(pd.DataFrame(sol_sim_portfolio,index=[0]), use_container_width=True)
+    real_col.dataframe(pd.DataFrame.from_dict(sol_real_portfolio, orient='index').reset_index(), use_container_width=True)
     sim_col.subheader('Simulated Portfolio')
-    sim_col.dataframe(pd.DataFrame(usdc_sim_portfolio,index=[0]), use_container_width=True)
+    sim_col.dataframe(pd.DataFrame.from_dict(sol_sim_portfolio, orient='index').reset_index(), use_container_width=True)
