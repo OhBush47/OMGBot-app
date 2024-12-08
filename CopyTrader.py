@@ -221,7 +221,7 @@ def convert2sol(sim_portfolio, api_key, price_per_sol):
     return sol_sim_portfolio, usdc_sim_portfolio
 
 st.title('Copy Trader')
-api_key = st.secrets("helius_key")
+api_key = st.secrets['helius_key']
 
 # Usage
 address_col, start_date_col = st.columns(2)
