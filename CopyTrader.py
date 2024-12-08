@@ -139,7 +139,6 @@ def simulate(real_swaps, address, start_date, start_sol, buy_perc, max_buy, txn_
         
         elif real_swap['token_out'] == 'So11111111111111111111111111111111111111112':
             # This is a sell transaction (swapping another token for SOL)
-            # We don't need to do anything here as we're only simulating buys
             token_in = real_swap['token_in']
             real_token_in_amount = float(real_swap['token_in_amount'])
             real_token_out_amount = float(real_swap['token_out_amount'])
@@ -228,15 +227,15 @@ col1, col2, col3, col4, col5 = st.columns(5)
 address = col1.text_input('Address:')
 start_date = col2.date_input('Start Date:')
 end_date = col2.date_input('End Date:')
-start_sol = col1.number_input('Start Sol:')
-buy_perc = col3.number_input('Buy Percentage:')
-max_buy = col3.number_input('Buy Max:')
-txn_fee_buy = col4.number_input('Buy Txn Fee:')
-txn_fee_sell = col4.number_input('Sell Txn Fee:')
-slip_buy = col5.number_input('Buy Slippage:')
-slip_sell = col5.number_input('Sell Slippage:')
+start_sol = col1.number_input('Start Sol:',default=10)
+buy_perc = col3.number_input('Buy Percentage:',default=0.01)
+max_buy = col3.number_input('Buy Max:',default=1)
+txn_fee_buy = col4.number_input('Buy Txn Fee:',default=0.003)
+txn_fee_sell = col4.number_input('Sell Txn Fee:',default=0.0003)
+slip_buy = col5.number_input('Buy Slippage:',default=0.05)
+slip_sell = col5.number_input('Sell Slippage:',default=0.05)
 
-if st.button('Load:'):
+if st.button('Simulate:'):
 
     #Get swaps
     # real_swaps = pd.read_csv('real_swaps.csv')
@@ -246,11 +245,17 @@ if st.button('Load:'):
 
     #Simulate copy trading
     real_portfolio, sim_portfolio, sim_swaps = simulate(real_swaps=real_swaps, address=address, start_date=start_date, start_sol=start_sol, buy_perc=buy_perc, max_buy=max_buy, txn_fee_buy=txn_fee_buy, txn_fee_sell=txn_fee_sell, slip_buy=slip_buy, slip_sell=slip_sell)
-    # pd.DataFrame(real_portfolio,index=[0]).to_csv('real_portfolio.csv',index=False)
-    # pd.DataFrame(sim_portfolio,index=[0]).to_csv('sim_portfolio.csv',index=False)
-    # sim_swaps.to_csv('sim_swaps.csv',index=False)
+
+    #Display
+    real_col, sim_col = st.columns(2)
+    real_col.subheader('Real Swaps')
+    real_col.dataframe(real_swaps, use_column_width=True)
+    sim_col.subheader('Simulated Swaps')
+    sim_col.dataframe(sim_swaps, use_column_width=True)
 
     #Convert to SOL
     sol_sim_portfolio, usdc_sim_portfolio = convert2sol(sim_portfolio, api_key, 245)
-    # pd.DataFrame(sol_sim_portfolio,index=[0]).to_csv('sol_sim_portfolio.csv',index=False)
-    # pd.DataFrame(usdc_sim_portfolio,index=[0]).to_csv('usdc_sim_portfolio.csv',index=False)
+    real_col.subheader('Real Portfolio')
+    real_col.dataframe(pd.DataFrame(sol_sim_portfolio,index=[0]), use_column_width=True)
+    sim_col.subheader('Simulated Portfolio')
+    sim_col.dataframe(pd.DataFrame(usdc_sim_portfolio,index=[0]), use_column_width=True)
